@@ -1,0 +1,70 @@
+@font-face {
+  font-display: swap;
+  font-style: normal;
+  src: url("/public/fonts/ManropeSemiBold.ttf");
+  font-family: "Manrope";
+  font-weight: 600;
+}
+@font-face {
+  font-display: swap;
+  font-style: normal;
+  src: url("/public/fonts/PlayfairDisplayMedium.ttf");
+  font-family: "Playfair Display";
+  font-weight: 500;
+}
+@font-face {
+  font-display: swap;
+  font-style: normal;
+  src: url("/public/fonts/PlayfairDisplayRegular.ttf");
+  font-family: "Playfair Display";
+  font-weight: 400;
+}
+@font-face {
+  font-display: swap;
+  font-style: normal;
+  src: url("/public/fonts/ManropeMedium.ttf");
+  font-family: "Manrope";
+  font-weight: 500;
+}
+@font-face {
+  font-display: swap;
+  font-style: normal;
+  src: url("/public/fonts/PlayfairDisplayExtraBold.ttf");
+  font-family: "Playfair Display";
+  font-weight: 800;
+}
+@font-face {
+  font-display: swap;
+  font-style: normal;
+  src: url("/public/fonts/DMSerifDisplayRegular.ttf");
+  font-family: "DM Serif Display";
+  font-weight: 400;
+}
+@font-face {
+  font-display: swap;
+  font-style: normal;
+  src: url("/public/fonts/MulishRegular.ttf");
+  font-family: "Mulish";
+  font-weight: 400;
+}
+@font-face {
+  font-display: swap;
+  font-style: normal;
+  src: url("/public/fonts/RalewayRomanBold.ttf");
+  font-family: "Raleway";
+  font-weight: 700;
+}
+@font-face {
+  font-display: swap;
+  font-style: normal;
+  src: url("/public/fonts/ManropeRegular.ttf");
+  font-family: "Manrope";
+  font-weight: 400;
+}
+@font-face {
+  font-display: swap;
+  font-style: normal;
+  src: url("/public/fonts/ManropeBold.ttf");
+  font-family: "Manrope";
+  font-weight: 700;
+}

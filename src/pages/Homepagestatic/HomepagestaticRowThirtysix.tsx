@@ -1,8 +1,57 @@
+
 import { Img, Button, TextArea, Input, Text, Heading } from "../../components";
 import UserProfile2 from "../../components/UserProfile2";
-import React from "react";
+import React, { useState } from "react";
 
 export default function HomepagestaticRowThirtysix() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
+
+  // Handle form input change
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setResponseMessage("");
+
+    try {
+      const response = await fetch("/api/submitMessage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setResponseMessage("Message successfully sent!");
+        setFormData({ name: "", email: "", message: "" }); // Reset the form
+      } else {
+        setResponseMessage("Error sending message.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setResponseMessage("There was an error submitting the form.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="flex">
       <div className="container-xs flex md:px-5">
@@ -50,37 +99,46 @@ export default function HomepagestaticRowThirtysix() {
                     <Text size="text2xl" as="p" className="!font-playfairdisplay capitalize !text-pink-900_01">
                       Write to us
                     </Text>
-                    <div className="flex flex-col items-start gap-10 self-stretch">
+                    <form onSubmit={handleSubmit} className="flex flex-col items-start gap-10 self-stretch">
                       <div className="flex flex-col gap-5 self-stretch">
                         <div className="flex gap-10 md:flex-col">
                           <Input
                             type="text"
                             name="name"
-                            placeholder={`name`}
+                            placeholder="name"
+                            value={formData.name}
+                            onChange={handleInputChange}
                             className="flex h-[52px] w-full items-center justify-center rounded-[12px] border border-solid border-blue_gray-50 bg-gray-50_01 px-4 text-[14px] capitalize text-blue_gray-200 shadow-4xl"
                           />
                           <Input
                             type="email"
                             name="email"
-                            placeholder={`email`}
+                            placeholder="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
                             className="flex h-[52px] w-full items-center justify-center rounded-[12px] border border-solid border-blue_gray-50 bg-gray-50_01 px-4 text-[14px] capitalize text-blue_gray-200 shadow-4xl"
                           />
                         </div>
                         <TextArea
-                          name="textbox"
-                          placeholder={`your message…`}
+                          name="message"
+                          placeholder="your message…"
+                          value={formData.message}
+                          onChange={handleInputChange}
                           className="h-[150px] rounded-[12px] border border-solid border-blue_gray-50 bg-gray-50_01 px-[18px] py-3.5 text-[14px] capitalize text-blue_gray-200 shadow-4xl"
                         />
                       </div>
                       <Button
+                        type="submit"
+                        disabled={isSubmitting}
                         rightIcon={
                           <Img src="images/img_arrowright.svg" alt="Arrow Right" className="my-0.5 h-[16px] w-[16px]" />
                         }
                         className="flex h-[40px] min-w-[150px] flex-row items-center justify-center gap-1.5 rounded-[12px] bg-gray-300 pl-5 pr-3 text-center text-[14px] font-medium capitalize text-white-a700"
                       >
-                        send message
+                        {isSubmitting ? 'Sending...' : 'Send Message'}
                       </Button>
-                    </div>
+                    </form>
+                    {responseMessage && <p>{responseMessage}</p>}
                   </div>
                 </div>
                 <Img

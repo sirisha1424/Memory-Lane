@@ -1,54 +1,35 @@
-
+import React, { useState } from 'react';
 import { Img, Button, TextArea, Input, Text, Heading } from "../../components";
 import UserProfile2 from "../../components/UserProfile2";
-import React, { useState } from "react";
 
 export default function HomepagestaticRowThirtysix() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState('');
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
-
-  // Handle form input change
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setResponseMessage("");
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
 
     try {
-      const response = await fetch("/api/submitMessage", {
-        method: "POST",
+      const response = await fetch('/api/submitMessage', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ name, email, message }),
       });
 
-      const result = await response.json();
-      if (result.success) {
-        setResponseMessage("Message successfully sent!");
-        setFormData({ name: "", email: "", message: "" }); // Reset the form
+      if (response.ok) {
+        setStatus('Message successfully sent!');
+        setName('');
+        setEmail('');
+        setMessage('');
       } else {
-        setResponseMessage("Error sending message.");
+        setStatus('Failed to send message.');
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
-      setResponseMessage("There was an error submitting the form.");
-    } finally {
-      setIsSubmitting(false);
+      setStatus('An error occurred.');
     }
   };
 
@@ -106,39 +87,38 @@ export default function HomepagestaticRowThirtysix() {
                             type="text"
                             name="name"
                             placeholder="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             className="flex h-[52px] w-full items-center justify-center rounded-[12px] border border-solid border-blue_gray-50 bg-gray-50_01 px-4 text-[14px] capitalize text-blue_gray-200 shadow-4xl"
                           />
                           <Input
                             type="email"
                             name="email"
                             placeholder="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="flex h-[52px] w-full items-center justify-center rounded-[12px] border border-solid border-blue_gray-50 bg-gray-50_01 px-4 text-[14px] capitalize text-blue_gray-200 shadow-4xl"
                           />
                         </div>
                         <TextArea
                           name="message"
                           placeholder="your message…"
-                          value={formData.message}
-                          onChange={handleInputChange}
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
                           className="h-[150px] rounded-[12px] border border-solid border-blue_gray-50 bg-gray-50_01 px-[18px] py-3.5 text-[14px] capitalize text-blue_gray-200 shadow-4xl"
                         />
                       </div>
                       <Button
                         type="submit"
-                        disabled={isSubmitting}
                         rightIcon={
                           <Img src="images/img_arrowright.svg" alt="Arrow Right" className="my-0.5 h-[16px] w-[16px]" />
                         }
-                        className="flex h-[40px] min-w-[150px] flex-row items-center justify-center gap-1.5 rounded-[12px] bg-gray-300 pl-5 pr-3 text-center text-[14px] font-medium capitalize text-white-a700"
+                        className="flex h-[40px] min-w-[150px] flex-row items-center justify-center gap-1.5 rounded-[12px] bg-pink-900_01 pl-5 pr-3 text-center text-[14px] font-medium capitalize text-white-a700"
                       >
-                        {isSubmitting ? 'Sending...' : 'Send Message'}
+                        Send Message
                       </Button>
+                      {status && <p>{status}</p>}
                     </form>
-                    {responseMessage && <p>{responseMessage}</p>}
                   </div>
                 </div>
                 <Img

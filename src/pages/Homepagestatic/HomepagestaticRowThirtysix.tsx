@@ -10,7 +10,7 @@ export default function HomepagestaticRowThirtysix() {
   const [successMessage, setSuccessMessage] = useState("");
 
   // Function to handle form submission
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Form data

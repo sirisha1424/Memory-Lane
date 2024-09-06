@@ -1,35 +1,45 @@
-import React, { useState } from 'react';
-import { Img, Button, TextArea, Input, Text, Heading } from "../../components";
+import React, { useState } from "react";
+import { Img, Button, TextArea, Input, Text, Heading } from "../../components"; // Adjust the import path if needed
 import UserProfile2 from "../../components/UserProfile2";
 
 export default function HomepagestaticRowThirtysix() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [status, setStatus] = useState('');
+  // State hooks for form inputs
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
+  // Function to handle form submission
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    
+    // Form data
+    const formData = {
+      name,
+      email,
+      message,
+    };
 
     try {
-      const response = await fetch('/api/submitMessage', {
-        method: 'POST',
+      const response = await fetch("/api/submitMessage", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        setStatus('Message successfully sent!');
-        setName('');
-        setEmail('');
-        setMessage('');
+        setSuccessMessage("Message successfully sent!");
+        // Clear form fields
+        setName("");
+        setEmail("");
+        setMessage("");
       } else {
-        setStatus('Failed to send message.');
+        setSuccessMessage("Failed to send message.");
       }
     } catch (error) {
-      setStatus('An error occurred.');
+      setSuccessMessage("An error occurred while sending the message.");
     }
   };
 
@@ -86,7 +96,7 @@ export default function HomepagestaticRowThirtysix() {
                           <Input
                             type="text"
                             name="name"
-                            placeholder="name"
+                            placeholder="Name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             className="flex h-[52px] w-full items-center justify-center rounded-[12px] border border-solid border-blue_gray-50 bg-gray-50_01 px-4 text-[14px] capitalize text-blue_gray-200 shadow-4xl"
@@ -94,7 +104,7 @@ export default function HomepagestaticRowThirtysix() {
                           <Input
                             type="email"
                             name="email"
-                            placeholder="email"
+                            placeholder="Email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="flex h-[52px] w-full items-center justify-center rounded-[12px] border border-solid border-blue_gray-50 bg-gray-50_01 px-4 text-[14px] capitalize text-blue_gray-200 shadow-4xl"
@@ -102,7 +112,7 @@ export default function HomepagestaticRowThirtysix() {
                         </div>
                         <TextArea
                           name="message"
-                          placeholder="your message…"
+                          placeholder="Your message…"
                           value={message}
                           onChange={(e) => setMessage(e.target.value)}
                           className="h-[150px] rounded-[12px] border border-solid border-blue_gray-50 bg-gray-50_01 px-[18px] py-3.5 text-[14px] capitalize text-blue_gray-200 shadow-4xl"
@@ -117,8 +127,10 @@ export default function HomepagestaticRowThirtysix() {
                       >
                         Send Message
                       </Button>
-                      {status && <p>{status}</p>}
                     </form>
+                    {successMessage && (
+                      <div className="mt-4 text-green-600">{successMessage}</div>
+                    )}
                   </div>
                 </div>
                 <Img

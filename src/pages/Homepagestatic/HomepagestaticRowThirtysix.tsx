@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Img, Button, TextArea, Input, Text, Heading } from "../../components"; // Adjust the import path if needed
+import { Img, Button, Input, Text, Heading } from "../../components"; // Adjust the import path if needed
 import UserProfile2 from "../../components/UserProfile2";
 
 export default function HomepagestaticRowThirtysix() {
@@ -12,7 +12,7 @@ export default function HomepagestaticRowThirtysix() {
   // Function to handle form submission
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    
+
     // Form data
     const formData = {
       name,
@@ -110,7 +110,7 @@ export default function HomepagestaticRowThirtysix() {
                             className="flex h-[52px] w-full items-center justify-center rounded-[12px] border border-solid border-blue_gray-50 bg-gray-50_01 px-4 text-[14px] capitalize text-blue_gray-200 shadow-4xl"
                           />
                         </div>
-                        <TextArea
+                        <textarea
                           name="message"
                           placeholder="Your message…"
                           value={message}

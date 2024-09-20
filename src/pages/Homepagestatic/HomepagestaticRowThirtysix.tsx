@@ -3,25 +3,18 @@ import { Img, Button, Input, Text, Heading } from "../../components"; // Adjust 
 import UserProfile2 from "../../components/UserProfile2";
 
 export default function HomepagestaticRowThirtysix() {
-  // State hooks for form inputs
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Form data
-    const formData = {
-      name,
-      email,
-      message,
-    };
+    const formData = { name, email, message };
 
     try {
-      const response = await fetch("/api/submitMessage", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,7 +24,6 @@ export default function HomepagestaticRowThirtysix() {
 
       if (response.ok) {
         setSuccessMessage("Message successfully sent!");
-        // Clear form fields
         setName("");
         setEmail("");
         setMessage("");
@@ -46,7 +38,7 @@ export default function HomepagestaticRowThirtysix() {
   return (
     <div className="flex">
       <div className="container-xs flex md:px-5">
-        <div className="h-[832px] w-full rounded-[12px] border border-solid border-blue_gray-50 bg-white-a700 bg-[url(/public/images/img_frame_6.png)] bg-cover bg-no-repeat py-8 shadow-sm md:h-auto sm:py-5">
+        <div className="h-[832px] w-full rounded-[12px] border border-solid border-blue_gray-50 bg-white-a700 py-8 shadow-sm md:h-auto sm:py-5">
           <div className="mb-20">
             <div className="flex flex-col gap-[94px] md:gap-[70px] sm:gap-[47px]">
               <div>
@@ -120,9 +112,7 @@ export default function HomepagestaticRowThirtysix() {
                       </div>
                       <Button
                         type="submit"
-                        rightIcon={
-                          <Img src="images/img_arrowright.svg" alt="Arrow Right" className="my-0.5 h-[16px] w-[16px]" />
-                        }
+                        rightIcon={<Img src="images/img_arrowright.svg" alt="Arrow Right" className="my-0.5 h-[16px] w-[16px]" />}
                         className="flex h-[40px] min-w-[150px] flex-row items-center justify-center gap-1.5 rounded-[12px] bg-pink-900_01 pl-5 pr-3 text-center text-[14px] font-medium capitalize text-white-a700"
                       >
                         Send Message
